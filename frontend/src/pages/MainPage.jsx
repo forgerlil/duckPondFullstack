@@ -8,7 +8,9 @@ const MainPage = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const getDuckData = await fetch('http://localhost:8000/ducks');
+        const getDuckData = await fetch(
+          'https://duck-pond-server.onrender.com/ducks'
+        );
         if (!getDuckData.ok)
           throw new Error(
             'The request failed with a status of ' + getDuckData.status

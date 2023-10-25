@@ -10,7 +10,9 @@ const DebuggerDuck = () => {
   useEffect(() => {
     (async () => {
       try {
-        const { data } = await axios(`http://localhost:8000/ducks/${duckId}`);
+        const { data } = await axios(
+          `https://duck-pond-server.onrender.com/ducks/${duckId}`
+        );
         setSingleDuck(data);
         setLoading(false);
       } catch (error) {
