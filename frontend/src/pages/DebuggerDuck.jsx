@@ -10,9 +10,7 @@ const DebuggerDuck = () => {
   useEffect(() => {
     (async () => {
       try {
-        const { data } = await axios(
-          `https://duck-pond-server.cyclic.cloud/ducks/${duckId}`
-        );
+        const { data } = await axios(`http://localhost:8000/ducks/${duckId}`);
         setSingleDuck(data);
         setLoading(false);
       } catch (error) {
@@ -36,7 +34,7 @@ const DebuggerDuck = () => {
       <div className='mt-4 mb-8 p-4 bg-neutral rounded flex flex-col items-center transition-all duration-300'>
         <h2 className='mb-4 text-2xl font-semibold'>Hello there!</h2>
         <p className='mb-1 font-thin text-lg text-center'>
-          I am {singleDuck.duckName}, and I will assist you with your debugging
+          I am {singleDuck.duck_name}, and I will assist you with your debugging
           for this session.
           <br />
           Please explain me your code in an engaging manner, and it&apos;s ok to
@@ -47,7 +45,7 @@ const DebuggerDuck = () => {
         <div className='p-12 pb-8 bg-neutral rounded flex flex-col items-center transition-all duration-300'>
           <img
             className='w-80 h-80 object-cover rounded'
-            src={singleDuck.imgSrc}
+            src={singleDuck.img_src}
             alt='duck'
           />
           <p className='mt-8 text-xl font-thin'>

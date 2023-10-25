@@ -7,10 +7,12 @@ const {
   editDuck,
   deactivateDuck,
 } = require('./controllers/duckControllers');
+const cors = require('cors');
 
 const port = process.env.PORT || 8000;
 
 app.use(express.json());
+app.use(cors());
 
 app.get('/', (req, res) => res.send('Welcome to the Duck Pond API!'));
 

@@ -2,6 +2,7 @@ const dbPool = require('../db/pgClient');
 
 /**
  * Controller to serve all countries from the wishlist.
+ * @route `/ducks`
  * @param {*} req - Express request object
  * @param {*} res - Express response object
  * @response Array of duck objects with joined owner
@@ -9,7 +10,7 @@ const dbPool = require('../db/pgClient');
 const getAllDucks = async (req, res) => {
   try {
     const { rows } = await dbPool.query(
-      `SELECT duck_name, img_src, quote, json_build_object('id', owner.id, 'first_name', owner.first_name, 'last_name', owner.last_name, 'email', owner.email) as owner FROM duck JOIN owner ON owner.id=duck.owner_id WHERE active=true;`
+      `SELECT duck.id, duck_name, img_src, quote, json_build_object('id', owner.id, 'first_name', owner.first_name, 'last_name', owner.last_name, 'email', owner.email) as owner FROM duck JOIN owner ON owner.id=duck.owner_id WHERE active=true;`
     );
 
     return res.json(rows);
@@ -21,6 +22,7 @@ const getAllDucks = async (req, res) => {
 
 /**
  * Controller to serve a single duck based on duck id.
+ * @route /ducks/:id
  * @param {*} req - Express request object
  * @param {*} res - Express response object
  * @response Single duck object with joined owner
@@ -34,7 +36,7 @@ const getSingleDuck = async (req, res) => {
     const {
       rows: [oneDuck],
     } = await dbPool.query(
-      `SELECT duck_name, img_src, quote, json_build_object('id', owner.id, 'first_name', owner.first_name, 'last_name', owner.last_name, 'email', owner.email) as owner FROM duck JOIN owner ON owner.id=duck.owner_id WHERE duck.id=$1 AND active=true`,
+      `SELECT duck.id, duck_name, img_src, quote, json_build_object('id', owner.id, 'first_name', owner.first_name, 'last_name', owner.last_name, 'email', owner.email) as owner FROM duck JOIN owner ON owner.id=duck.owner_id WHERE duck.id=$1 AND active=true`,
       [id]
     );
 
@@ -51,6 +53,7 @@ const getSingleDuck = async (req, res) => {
 /**
  * Controller to create a new duck in the database.
  * `duck_name`, `img_src` and `owner_id` are required from req.body
+ * @route /duck
  * @param {*} req - Express request object
  * @param {*} res - Express response object
  * @response Newly created duck row

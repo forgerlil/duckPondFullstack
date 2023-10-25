@@ -6,8 +6,8 @@ import axios from 'axios';
 const AddDuck = () => {
   const navigate = useNavigate();
   const [formState, setFormState] = useState({
-    duckName: '',
-    imgSrc: '',
+    duck_name: '',
+    img_src: '',
     quote: '',
   });
 
@@ -21,21 +21,21 @@ const AddDuck = () => {
 
       let isValid = true;
 
-      if (!formState.duckName) {
+      if (!formState.duck_name) {
         toastError('The name for a duck is required');
         isValid = false;
       }
-      if (!formState.imgSrc) {
+      if (!formState.img_src) {
         toastError('The image for a duck is required');
         isValid = false;
       }
 
       if (!isValid) throw new Error('Invalid form');
 
-      const { status } = await axios.post(
-        'https://duck-pond-server.cyclic.cloud/ducks',
-        formState
-      );
+      const { status } = await axios.post('http://localhost:8000/ducks', {
+        ...formState,
+        owner_id: 1,
+      });
 
       if (status === 201) {
         toastSuccess('Duck added');
@@ -60,16 +60,16 @@ const AddDuck = () => {
           <input
             type='text'
             placeholder="Duck's Name"
-            name='duckName'
-            value={formState.duckName}
+            name='duck_name'
+            value={formState.duck_name}
             onChange={handleChange}
             className='w-4/5 mb-2 sm:mb-4 lg:mb-8 p-2 outline-none border-b border-transparent focus:border-slate-400 dark:focus:border-slate-100 dark:bg-slate-500 rounded transition-all'
           />
           <input
             type='text'
             placeholder='Duck photo URL'
-            name='imgSrc'
-            value={formState.imgSrc}
+            name='img_src'
+            value={formState.img_src}
             onChange={handleChange}
             className='w-4/5 mb-2 sm:mb-4 lg:mb-8 p-2 outline-none border-b border-transparent focus:border-slate-400 dark:focus:border-slate-100 dark:bg-slate-500 rounded transition-all'
           />
