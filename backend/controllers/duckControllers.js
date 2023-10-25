@@ -1,7 +1,7 @@
 const dbPool = require('../db/pgClient');
 
 /**
- * Controller to serve all countries from the wishlist.
+ * Controller to serve all ducks in the database.
  * @route `/ducks`
  * @param {*} req - Express request object
  * @param {*} res - Express response object
@@ -85,7 +85,7 @@ const createDuck = async (req, res) => {
  * `duck_name`, `img_src`, and `owner_id` are required from req.body
  * @param {*} req - Express request object
  * @param {*} res - Express response object
- * @response Edited `country` object
+ * @response Edited `duck` object
  */
 const editDuck = async (req, res) => {
   try {
