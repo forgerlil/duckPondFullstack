@@ -32,10 +32,14 @@ const AddDuck = () => {
 
       if (!isValid) throw new Error('Invalid form');
 
-      const { status } = await axios.post('http://localhost:8000/ducks', {
-        ...formState,
-        owner_id: 1,
-      });
+      const { status } = await axios.post(
+        // `${import.meta.env.DEV ? VITE_BACKEND_URL_DEV : VITE_BACKEND_URL_DEPLOY}/ducks`,
+        'https://duck-pond-server.onrender.com/ducks',
+        {
+          ...formState,
+          owner_id: 1,
+        }
+      );
 
       if (status === 201) {
         toastSuccess('Duck added');
